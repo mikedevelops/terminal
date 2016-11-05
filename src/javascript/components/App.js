@@ -3,6 +3,7 @@ import Time from './Time'
 import LastLogin from './LastLogin'
 import CommandLine from './CommandLine'
 import Caret from './Caret'
+import CommandInput from './CommandInput'
 
 import config from '../config'
 import terminal from '../helpers/terminal'
@@ -11,13 +12,28 @@ export default class App extends Component {
     constructor (props) {
         super (props)
 
+        this.updateInput = this.updateInput.bind(this)
         this.state = {
-            path: ['Mike', 'Portfolio', 'www']
+            path: ['Mike', 'Portfolio', 'www'],
+            input: '',
+            focus: true
         }
     }
 
+    updateInput (value) {
+        this.setState({
+            input: value
+        })
+    }
+
+    focusInput () {
+        this.setState({
+            focus: true
+        })
+    }
+
     render () {
-        const { path } = this.state
+        const { path, input, focus } = this.state
 
         return (
             <div className="container">
@@ -37,8 +53,12 @@ export default class App extends Component {
                     { terminal.printText('Type ‘help’ for command list')}
                     { terminal.printEmptyLine() }
 
-                    <CommandLine path={terminal.printPath(path)}>
-                        <Caret/>
+                    <CommandLine focusInput={this.focusInput.bind(this)} path={terminal.printPath(path)}>
+                        <CommandInput
+                            updateInput={this.updateInput}
+                            input={input}
+                            focus={focus}
+                        /><Caret/>
                     </CommandLine>
                 </div>
             </div>

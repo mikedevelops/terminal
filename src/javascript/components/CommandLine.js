@@ -5,7 +5,7 @@ export default class CommandLine extends Component {
         const { path } = this.props
 
         return (
-            <div className="command-line">
+            <div onClick={this.props.focusInput} className="command-line">
                 <p className="command-line__path">{ path }</p>
                 { this.props.children }
             </div>
@@ -15,5 +15,6 @@ export default class CommandLine extends Component {
 
 CommandLine.propTypes = {
     path: PropTypes.string,
-    children: PropTypes.element
+    children: PropTypes.array,
+    focusInput: PropTypes.func
 }

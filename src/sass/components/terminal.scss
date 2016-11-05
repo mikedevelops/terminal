@@ -15,13 +15,13 @@
 }
 
 /**
- * Command line
+ * Text
  */
 
-.command-line__path {
-    display: inline-block;
-    margin-right: $space-third;
-    vertical-align: middle;
+.terminal__text {
+    color: $color-white;
+    font-family: $font-base;
+    font-weight: $font-weight-bold;
 }
 
 /**
@@ -36,7 +36,7 @@
 
 $caret-width: .5rem;
 $caret-height: 1rem;
-$caret-blink: 750ms;
+$caret-blink: 1000ms;
 
 .terminal__caret {
     animation: blink 750ms infinite steps(1);
@@ -47,4 +47,5 @@ $caret-blink: 750ms;
     transform: translateY(-1px);
     vertical-align: middle;
     width: $caret-width;
+    will-change: opacity;
 }

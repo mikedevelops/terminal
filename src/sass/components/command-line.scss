@@ -1,0 +1,43 @@
+/**
+ * Command Line
+ */
+
+ .command-line__path {
+     display: inline-block;
+     margin-right: $space-third;
+     vertical-align: middle;
+ }
+
+ /**
+  * Input
+  */
+
+.command-line__input {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.command-line__hidden {
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    display: inline-block;
+    height: 0;
+    outline: 0;
+    padding: 0;
+    position: absolute;
+    width: 0;
+
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+ }
+
+/**
+ * Text
+ */
+
+.command-line__text {
+    @extend .terminal__text;
+}
