@@ -1,0 +1,23 @@
+/**
+* Typography
+**/
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+p {
+    font-size: $normalis;
+}
+
+/**
+* Fonts
+**/
+
+$font-base: 'Courier New', monospace;
+
+$font-weight-light:    300;
+$font-weight-normal:   400;
+$font-weight-bold:     600;

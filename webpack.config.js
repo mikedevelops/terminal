@@ -1,6 +1,6 @@
-var path = require('path');
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
+var path = require('path')
+var precss = require('precss')
+var autoprefixer = require('autoprefixer')
 
 module.exports = {
     entry: {
@@ -25,6 +25,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loaders: ['style', 'css', 'postcss', 'sass']
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader'
             }
         ]
     },
@@ -32,4 +37,4 @@ module.exports = {
         return [precss, autoprefixer]
     },
     devtool: 'source-map'
-};
+}

@@ -1,0 +1,80 @@
+/**
+* Settings
+**/
+
+$base-font-size:                16px;
+$base-line-height:              26px;
+$line-height-ratio:             $base-line-height / $base-font-size;
+
+$giga-px:                       96px;
+$giga:                          $giga-px / $base-font-size * 1rem;
+
+$mega-px:                       72px;
+$mega:                          $mega-px / $base-font-size * 1rem;
+
+$kilo-px:                       48px;
+$kilo:                          $kilo-px / $base-font-size * 1rem;
+
+$alpha-px:                      40px;
+$alpha:                         $alpha-px / $base-font-size * 1rem;
+
+$beta-px:                       30px;
+$beta:                          $beta-px / $base-font-size * 1rem;
+
+$gamma-px:                      28px;
+$gamma:                         $gamma-px / $base-font-size * 1rem;
+
+$delta-px:                      24px;
+$delta:                         $delta-px / $base-font-size * 1rem;
+
+$epsilon-px:                    20px;
+$epsilon:                       $epsilon-px / $base-font-size * 1rem;
+
+$zeta-px:                       18px;
+$zeta:                          $zeta-px / $base-font-size * 1rem;
+
+$normalis-px:                   16px;
+$normalis:                      $normalis-px / $base-font-size * 1rem;
+
+$milli-px:                      14px;
+$milli:                         $milli-px / $base-font-size * 1rem;
+
+$micro-px:                      13px;
+$micro:                         $micro-px / $base-font-size * 1rem;
+
+/**
+* Border Radius
+**/
+
+$border-radius: 4px;
+
+/**
+* Space
+**/
+
+$space:                         ($base-line-height / $base-font-size) * 1rem;
+$space-three-quarters:          $space * .75;
+$space-two-thirds:              $space * .666666666;
+$space-half:                    $space / 2;
+$space-third:                   $space / 3;
+$space-quarter:                 $space / 4;
+$space-fifth:                   $space / 5;
+$space-and-fifth:               $space * 1.2;
+$space-and-quarter:             $space * 1.25;
+$space-and-third:               $space * 1.333333333;
+$space-and-half:                $space * 1.5;
+$space-and-two-thirds:          $space * 1.666666666;
+$space-and-three-quarters:      $space * 1.75;
+$space-double:                  $space * 2;
+$space-triple:                  $space * 3;
+$space-quadruple:               $space * 4;
+
+/**
+* Breakpoints
+**/
+
+/**
+* Container
+**/
+
+$container-width: 1000px;

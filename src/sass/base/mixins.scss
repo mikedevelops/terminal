@@ -1,0 +1,22 @@
+/**
+* Mixins
+**/
+
+@mixin respond-min($width) {
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin respond-max($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin placeholder {
+    ::-webkit-input-placeholder {@content}
+    :-moz-placeholder           {@content}
+    ::-moz-placeholder          {@content}
+    :-ms-input-placeholder      {@content}
+}

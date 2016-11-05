@@ -1,0 +1,15 @@
+/**
+* Base
+**/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: $color-black;
+    color: $color-text-default;
+    font-family: $font-base;
+    font-weight: $font-weight-bold;
+}

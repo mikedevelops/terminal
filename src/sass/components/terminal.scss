@@ -1,0 +1,50 @@
+/**
+ * Terminal
+ */
+
+.terminal {
+    clear: both;
+}
+
+/**
+ * Empty Line
+ */
+
+.terminal__empty-line {
+    height: $normalis;
+}
+
+/**
+ * Command line
+ */
+
+.command-line__path {
+    display: inline-block;
+    margin-right: $space-third;
+    vertical-align: middle;
+}
+
+/**
+ * Caret
+ */
+
+@keyframes blink {
+    0%     { opacity: 1; }
+    50%    { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+$caret-width: .5rem;
+$caret-height: 1rem;
+$caret-blink: 750ms;
+
+.terminal__caret {
+    animation: blink 750ms infinite steps(1);
+    background-color: $color-white;
+    display: inline-block;
+    height: $caret-height;
+    position: relative;
+    transform: translateY(-1px);
+    vertical-align: middle;
+    width: $caret-width;
+}
