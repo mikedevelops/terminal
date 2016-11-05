@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 
 export default class CommandInput extends Component {
+    constructor (props) {
+        super(props)
+
+        this.count = this.props.count
+    }
+
     handleInput (event) {
         this.props.updateInput(event.target.value)
     }
@@ -9,8 +15,14 @@ export default class CommandInput extends Component {
         this.refs.input.focus()
     }
 
-    componentWillReceiveProps () {
-        if (this.props.focus) this.focusInput()
+    componentWillReceiveProps (props) {
+        const { count, focus } = props
+
+        if (focus) this.focusInput()
+        if (count > this.count) {
+            this.refs.input.value = ''
+            this.count = count
+        }
     }
 
     componentDidMount () {
@@ -37,5 +49,6 @@ export default class CommandInput extends Component {
 CommandInput.propTypes = {
     updateInput: PropTypes.func,
     input: PropTypes.string,
-    focus: PropTypes.bool
+    focus: PropTypes.bool,
+    count: PropTypes.number
 }

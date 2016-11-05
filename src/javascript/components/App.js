@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Immutable from 'immutable'
 import Time from './Time'
 import LastLogin from './LastLogin'
 import CommandLine from './CommandLine'
@@ -13,10 +14,15 @@ export default class App extends Component {
         super (props)
 
         this.updateInput = this.updateInput.bind(this)
+        this.focusInput = this.focusInput.bind(this)
+        this.execute = this.execute.bind(this)
         this.state = {
             path: ['Mike', 'Portfolio', 'www'],
             input: '',
-            focus: true
+            focus: true,
+            command: '',
+            count: 0,
+            history: Immutable.List()
         }
     }
 
@@ -32,17 +38,39 @@ export default class App extends Component {
         })
     }
 
+    execute (event) {
+        if (event.key === 'Enter') {
+            const { history, path } = this.state
+            const newHistory = history.push({ path: path, command: this.state.input })
+
+            this.setState({
+                command: this.state.input,
+                history: newHistory,
+                input: '',
+                count: this.state.count + 1
+            })
+        }
+    }
+
     render () {
-        const { path, input, focus } = this.state
+        const { path, input, focus, count } = this.state
+        const CommandHistory = this.state.history.map((history, index) => {
+            return (
+                <CommandLine
+                    key={`${history.command}_${index}`}
+                    path={terminal.printPath(history.path)}
+                    command={history.command} />
+            )
+        })
 
         return (
-            <div className="container">
+            <div onClick={this.focusInput} className="container">
                 <div className="status-bar">
                     <LastLogin time={Date.now()} />
                     <Time time={Date.now()} interval={1000} />
                 </div>
 
-                <div className="terminal">
+                <div onKeyPress={this.execute} className="terminal">
                     { terminal.printEmptyLine() }
                     { terminal.printText(`Name: ${config.name} ${config.version}`) }
                     { terminal.printText(`Location: ${config.location}`) }
@@ -50,16 +78,20 @@ export default class App extends Component {
                     { terminal.printText(`GitHub: ${config.github}`) }
                     { terminal.printText(`Twitter: ${config.twitter}`) }
                     { terminal.printEmptyLine() }
-                    { terminal.printText('Type ‘help’ for command list')}
+                    { terminal.printText('Enter ‘help’ for command list')}
                     { terminal.printEmptyLine() }
 
-                    <CommandLine focusInput={this.focusInput.bind(this)} path={terminal.printPath(path)}>
-                        <CommandInput
-                            updateInput={this.updateInput}
-                            input={input}
-                            focus={focus}
-                        /><Caret/>
-                    </CommandLine>
+                    <div className="command-line__history">
+                        { CommandHistory }
+                    </div>
+
+                    <CommandLine path={terminal.printPath(path)} />
+                    <CommandInput
+                        updateInput={this.updateInput}
+                        input={input}
+                        focus={focus}
+                        count={count}
+                    /><Caret/>
                 </div>
             </div>
         )

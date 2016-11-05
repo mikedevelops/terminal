@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react'
 
 export default class CommandLine extends Component {
     render () {
-        const { path } = this.props
+        const { path, command } = this.props
 
         return (
-            <div onClick={this.props.focusInput} className="command-line">
-                <p className="command-line__path">{ path }</p>
-                { this.props.children }
+            <div className="command-line">
+                <p className="command-line__path">{ path } {command}</p>
             </div>
         )
     }
@@ -15,6 +14,7 @@ export default class CommandLine extends Component {
 
 CommandLine.propTypes = {
     path: PropTypes.string,
+    command: PropTypes.string,
     children: PropTypes.array,
     focusInput: PropTypes.func
 }

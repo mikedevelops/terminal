@@ -2,10 +2,26 @@
  * Command Line
  */
 
- .command-line__path {
-     display: inline-block;
-     margin-right: $space-third;
-     vertical-align: middle;
+.command-line {
+    display: inline-block;
+    margin-right: $space-third;
+    vertical-align: middle;
+}
+
+/**
+ * Path
+ */
+
+ .command-line__path {}
+
+ /**
+  * History
+  */
+
+ .command-line__history {
+     .command-line {
+         display: block;
+     }
  }
 
  /**
