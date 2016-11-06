@@ -2,7 +2,7 @@
  * Command Line
  */
 
-.command-line {
+.command {
     display: inline-block;
     margin-right: $space-third;
     vertical-align: middle;
@@ -12,14 +12,14 @@
  * Path
  */
 
- .command-line__path {}
+ .command__path {}
 
  /**
   * History
   */
 
- .command-line__history {
-     .command-line {
+ .command__history {
+     .command {
          display: block;
      }
  }
@@ -28,19 +28,21 @@
   * Input
   */
 
-.command-line__input {
+.command__input {
     display: inline-block;
     vertical-align: middle;
 }
 
-.command-line__hidden {
+.command__hidden {
     -webkit-appearance: none;
     background: none;
     border: 0;
     display: inline-block;
-    height: 0;
     outline: 0;
     padding: 0;
+
+    // invisible-ness
+    height: 0;
     position: absolute;
     width: 0;
 
@@ -54,6 +56,6 @@
  * Text
  */
 
-.command-line__text {
+.command__text {
     @extend .terminal__text;
 }

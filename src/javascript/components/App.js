@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Immutable from 'immutable'
+import { List } from 'immutable'
 import Time from './Time'
 import LastLogin from './LastLogin'
 import CommandLine from './CommandLine'
@@ -22,7 +22,9 @@ export default class App extends Component {
             focus: true,
             command: '',
             count: 0,
-            history: Immutable.List()
+            history: List(),
+            commandCache: List(),
+            commandCacheCount: 0
         }
     }
 
@@ -39,21 +41,53 @@ export default class App extends Component {
     }
 
     execute (event) {
-        if (event.key === 'Enter') {
-            const { history, path } = this.state
-            const newHistory = history.push({ path: path, command: this.state.input })
+        const { input, count, commandCache, history, path, commandCacheCount } = this.state
+
+        const cleanInput = input.toLocaleLowerCase().trim()
+        let newCommandCache = commandCache.push(input)
+        let newInput = ''
+        let newHistory
+
+        switch (event.keyCode) {
+        // Enter
+        case 13:
+            if (cleanInput === 'clear') {
+                newHistory = history.clear()
+            }
+            else {
+                newHistory = history.push({
+                    path: path, command: cleanInput
+                })
+            }
 
             this.setState({
-                command: this.state.input,
+                command: input,
+                commandCache: newCommandCache,
                 history: newHistory,
-                input: '',
-                count: this.state.count + 1
+                input: newInput,
+                count: count + 1
+            })
+            break
+        // Up Arrow
+        case 38:
+            newInput = commandCache.last() || ''
+
+            if (commandCache.size) {
+                // move last command to the first position in cache
+                newCommandCache = commandCache.unshift(commandCache.last()).pop()
+            }
+
+            this.setState({
+                input: newInput,
+                commandCache: newCommandCache,
+                commandCacheCount: commandCacheCount + 1
             })
         }
+
     }
 
     render () {
-        const { path, input, focus, count } = this.state
+        const { path, input, focus, count, commandCacheCount } = this.state
         const CommandHistory = this.state.history.map((history, index) => {
             return (
                 <CommandLine
@@ -70,24 +104,29 @@ export default class App extends Component {
                     <Time time={Date.now()} interval={1000} />
                 </div>
 
-                <div onKeyPress={this.execute} className="terminal">
+                <div onKeyDown={this.execute} className="terminal">
                     { terminal.printEmptyLine() }
+
                     { terminal.printText(`Name: ${config.name} ${config.version}`) }
                     { terminal.printText(`Location: ${config.location}`) }
                     { terminal.printText(`Job: ${config.job} @ ${config.employer}`) }
                     { terminal.printText(`GitHub: ${config.github}`) }
                     { terminal.printText(`Twitter: ${config.twitter}`) }
-                    { terminal.printEmptyLine() }
-                    { terminal.printText('Enter ‘help’ for command list')}
+
                     { terminal.printEmptyLine() }
 
-                    <div className="command-line__history">
+                    { terminal.printText('Type ‘help’ for command list')}
+
+                    { terminal.printEmptyLine() }
+
+                    <div className="command__history">
                         { CommandHistory }
                     </div>
 
                     <CommandLine path={terminal.printPath(path)} />
                     <CommandInput
                         updateInput={this.updateInput}
+                        commandCacheCount={commandCacheCount}
                         input={input}
                         focus={focus}
                         count={count}

@@ -15,7 +15,7 @@ module.exports = {
         loaders: [
             {
                 test: /.js$/,
-                exclude: /node_modules/,
+                excommandude: /node_modules/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015', 'react'],
@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
+                excommandude: /node_modules/,
                 loader: 'eslint-loader'
             }
         ]
@@ -36,5 +36,5 @@ module.exports = {
     postcss: function () {
         return [precss, autoprefixer]
     },
-    devtool: 'source-map'
+    devtool: 'inline-source-map'
 }

@@ -4,7 +4,10 @@ export default class CommandInput extends Component {
     constructor (props) {
         super(props)
 
-        this.count = this.props.count
+        const { count, commandCacheCount } = this.props
+
+        this.count = count
+        this.commandCacheCount = commandCacheCount
     }
 
     handleInput (event) {
@@ -16,12 +19,18 @@ export default class CommandInput extends Component {
     }
 
     componentWillReceiveProps (props) {
-        const { count, focus } = props
+        const { count, focus, commandCacheCount, input } = props
 
         if (focus) this.focusInput()
+        // clear input on 'enter'
         if (count > this.count) {
             this.refs.input.value = ''
             this.count = count
+        }
+        // replace value with cached command on 'up arrow'
+        else if (commandCacheCount !== this.commandCacheCount) {
+            this.refs.input.value = input
+            this.commandCacheCount = commandCacheCount
         }
     }
 
@@ -33,14 +42,14 @@ export default class CommandInput extends Component {
         const { input } = this.props
 
         return (
-            <div className="command-line__input">
+            <div className="command__input">
                 <input
                     type="text"
                     onChange={this.handleInput.bind(this)}
-                    className="command-line__hidden"
+                    className="command__hidden"
                     ref="input"
                  />
-                <p className="command-line__text">{ input }</p>
+                <p className="command__text">{ input }</p>
             </div>
         )
     }
@@ -50,5 +59,6 @@ CommandInput.propTypes = {
     updateInput: PropTypes.func,
     input: PropTypes.string,
     focus: PropTypes.bool,
-    count: PropTypes.number
+    count: PropTypes.number,
+    commandCacheCount: PropTypes.number
 }
