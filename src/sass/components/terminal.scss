@@ -21,6 +21,7 @@
 .terminal__text {
     color: $color-white;
     font-family: $font-base;
+    font-size: $normalis;
     font-weight: $font-weight-bold;
 }
 
@@ -34,18 +35,19 @@
     100%   { opacity: 1; }
 }
 
-$caret-width: .5rem;
+// calucalate character width http://jsfiddle.net/eNzjZ/34/
+$caret-width: 9.6015625px;
 $caret-height: 1rem;
 $caret-blink: 1000ms;
 
 .terminal__caret {
     animation: blink 750ms infinite steps(1);
     background-color: $color-white;
+    backdrop-filter: invert(100%);
     display: inline-block;
     height: $caret-height;
     position: relative;
-    transform: translateY(-1px);
     vertical-align: middle;
     width: $caret-width;
-    will-change: opacity;
+    will-change: opacity, transform;
 }

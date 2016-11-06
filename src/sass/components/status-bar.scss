@@ -11,7 +11,11 @@
  */
 
  .time {
-     float: right;
+     @extend .terminal__text;
+
+     time {
+         float: right;
+     }     
  }
 
 /**
@@ -20,4 +24,8 @@
 
 .last-login {
     float: left;
+}
+
+.last-login__text {
+    @extend .terminal__text;
 }

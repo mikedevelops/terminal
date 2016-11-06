@@ -13,9 +13,9 @@ export default class App extends Component {
     constructor (props) {
         super (props)
 
-        this.updateInput = this.updateInput.bind(this)
         this.focusInput = this.focusInput.bind(this)
-        this.execute = this.execute.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+        this.handleCaret = this.handleCaret.bind(this)
         this.state = {
             path: ['Mike', 'Portfolio', 'www'],
             input: '',
@@ -24,14 +24,9 @@ export default class App extends Component {
             count: 0,
             history: List(),
             commandCache: List(),
-            commandCacheCount: 0
+            commandCacheCount: 0,
+            position: 0
         }
-    }
-
-    updateInput (value) {
-        this.setState({
-            input: value
-        })
     }
 
     focusInput () {
@@ -40,15 +35,21 @@ export default class App extends Component {
         })
     }
 
-    execute (event) {
-        const { input, count, commandCache, history, path, commandCacheCount } = this.state
+    handleCaret (event) {
+        const { history, path, count, position, commandCache, commandCacheCount, input } = this.state
+        const { value } = event.target
+        const { keyCode } = event
+        const cleanInput = value.toLocaleLowerCase().trim()
+        const valueLength = value.length
 
-        const cleanInput = input.toLocaleLowerCase().trim()
-        let newCommandCache = commandCache.push(input)
-        let newInput = ''
-        let newHistory
+        let newHistory = history
+        let newCount = count
+        let newPosition = position
+        let newInput = input
+        let newCommandCache = commandCache
+        let newCommandCacheCount = commandCacheCount
 
-        switch (event.keyCode) {
+        switch (keyCode) {
         // Enter
         case 13:
             if (cleanInput === 'clear') {
@@ -56,18 +57,28 @@ export default class App extends Component {
             }
             else {
                 newHistory = history.push({
-                    path: path, command: input
+                    path: path, command: value
                 })
             }
 
-            this.setState({
-                command: input,
-                commandCache: newCommandCache,
+            newCommandCache = newCommandCache.push(value)
+
+            return this.setState({
                 history: newHistory,
-                input: newInput,
-                count: count + 1
+                count: newCount + 1,
+                command: value,
+                commandCache: newCommandCache,
+                input: ''
             })
-            break
+        // Left Arrow, Back Space
+        case 37:
+        case 8:
+            newPosition = position === 0 ? 0 : position - 1
+            return this.setState({ position: newPosition })
+        // Right Arrow
+        case 39:
+            newPosition = position === valueLength ? valueLength : position + 1
+            return this.setState({ position: newPosition })
         // Up Arrow
         case 38:
             newInput = commandCache.last() || ''
@@ -77,18 +88,25 @@ export default class App extends Component {
                 newCommandCache = commandCache.unshift(commandCache.last()).pop()
             }
 
-            this.setState({
+            return this.setState({
                 input: newInput,
                 commandCache: newCommandCache,
-                commandCacheCount: commandCacheCount + 1
+                commandCacheCount: newCommandCacheCount + 1
             })
         }
+    }
 
+    // TODO: _ensure_ state is only updated once when onKeyDown & onChange are fired
+
+    handleInput (event) {
+        const { value } = event.target
+
+        this.setState({ input: value })
     }
 
     render () {
-        const { path, input, focus, count, commandCacheCount } = this.state
-        const CommandHistory = this.state.history.map((history, index) => {
+        const { path, input, focus, count, commandCacheCount, position } = this.state
+        const CommandCache = this.state.history.map((history, index) => {
             return (
                 <CommandLine
                     key={`${history.command}_${index}`}
@@ -104,7 +122,7 @@ export default class App extends Component {
                     <Time time={Date.now()} interval={1000} />
                 </div>
 
-                <div onKeyDown={this.execute} className="terminal">
+                <div onChange={this.handleInput} onKeyDown={this.handleCaret} className="terminal">
                     { terminal.printEmptyLine() }
 
                     { terminal.printText(`Name: ${config.name} ${config.version}`) }
@@ -120,17 +138,16 @@ export default class App extends Component {
                     { terminal.printEmptyLine() }
 
                     <div className="command__history">
-                        { CommandHistory }
+                        { CommandCache }
                     </div>
 
                     <CommandLine path={terminal.printPath(path)} />
                     <CommandInput
-                        updateInput={this.updateInput}
                         commandCacheCount={commandCacheCount}
                         input={input}
                         focus={focus}
                         count={count}
-                    /><Caret/>
+                    /><Caret position={position} input={input} />
                 </div>
             </div>
         )

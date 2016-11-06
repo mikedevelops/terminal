@@ -10,16 +10,13 @@ export default class CommandInput extends Component {
         this.commandCacheCount = commandCacheCount
     }
 
-    handleInput (event) {
-        this.props.updateInput(event.target.value)
-    }
-
     focusInput () {
         this.refs.input.focus()
     }
 
     componentWillReceiveProps (props) {
         const { count, focus, commandCacheCount, input } = props
+
 
         if (focus) this.focusInput()
         // clear input on 'enter'
@@ -45,7 +42,6 @@ export default class CommandInput extends Component {
             <div className="command__input">
                 <input
                     type="text"
-                    onChange={this.handleInput.bind(this)}
                     className="command__hidden"
                     ref="input"
                  />
