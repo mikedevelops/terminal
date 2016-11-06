@@ -10,6 +10,8 @@ import config from '../config'
 import terminal from '../helpers/terminal'
 import getMyVersion from '../helpers/getMyVersion'
 
+const theDate = Date.now()
+
 export default class App extends Component {
     constructor (props) {
         super (props)
@@ -71,10 +73,10 @@ export default class App extends Component {
                 commandCache: newCommandCache,
                 input: ''
             })
-        // Left Arrow, Back Space
+        // Left Arrow
         case 37:
-        case 8:
-            newPosition = position === 0 ? 0 : position - 1
+            newPosition = newPosition === 0 ? 0 : newPosition - 1
+
             return this.setState({ position: newPosition })
         // Right Arrow
         case 39:
@@ -97,12 +99,16 @@ export default class App extends Component {
         }
     }
 
-    // TODO: _ensure_ state is only updated once when onKeyDown & onChange are fired
-
     handleInput (event) {
+        const { position, input } = this.state
         const { value } = event.target
 
-        this.setState({ input: value })
+        let newPosition
+
+        if (value.length < input.length) newPosition = position === 0 ? position : position - 1
+        else newPosition = position + 1
+
+        this.setState({ input: value, position: newPosition })
     }
 
     render () {
@@ -119,14 +125,14 @@ export default class App extends Component {
         return (
             <div onClick={this.focusInput} className="container">
                 <div className="status-bar">
-                    <LastLogin time={Date.now()} />
-                    <Time time={Date.now()} interval={1000} />
+                    <LastLogin time={theDate} />
+                    <Time time={theDate} interval={1000} />
                 </div>
 
                 <div onChange={this.handleInput} onKeyDown={this.handleCaret} className="terminal">
                     { terminal.printEmptyLine() }
 
-                    { terminal.printText(`Name: ${config.name} ${getMyVersion(Date.now())}`) }
+                    { terminal.printText(`Name: ${config.name} ${getMyVersion(theDate)}`) }
                     { terminal.printText(`Location: ${config.location}`) }
                     { terminal.printText(`Job: ${config.job} @ ${config.employer}`) }
                     { terminal.printText('GitHub: ', 'a', config.github) }
