@@ -22,6 +22,10 @@
      .command {
          display: block;
      }
+
+     .command__path {
+         white-space: pre;
+     }
  }
 
  /**
@@ -31,6 +35,7 @@
 .command__input {
     display: inline-block;
     vertical-align: middle;
+    white-space: pre;
 }
 
 .command__hidden {
@@ -45,6 +50,8 @@
     height: 0;
     position: absolute;
     width: 0;
+    // box-shadow: inset 0 0 0 1px #f00;
+    // color: red;
 
     &:focus,
     &:active {

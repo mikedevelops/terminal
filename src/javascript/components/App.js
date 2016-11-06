@@ -56,7 +56,7 @@ export default class App extends Component {
             }
             else {
                 newHistory = history.push({
-                    path: path, command: cleanInput
+                    path: path, command: input
                 })
             }
 
@@ -110,8 +110,8 @@ export default class App extends Component {
                     { terminal.printText(`Name: ${config.name} ${config.version}`) }
                     { terminal.printText(`Location: ${config.location}`) }
                     { terminal.printText(`Job: ${config.job} @ ${config.employer}`) }
-                    { terminal.printText(`GitHub: `, 'a', config.github) }
-                    { terminal.printText(`Twitter: `, 'a', config.twitter) }
+                    { terminal.printText('GitHub: ', 'a', config.github) }
+                    { terminal.printText('Twitter: ', 'a', config.twitter) }
 
                     { terminal.printEmptyLine() }
 
