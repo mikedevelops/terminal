@@ -8,6 +8,7 @@ import CommandInput from './CommandInput'
 
 import config from '../config'
 import terminal from '../helpers/terminal'
+import getMyVersion from '../helpers/getMyVersion'
 
 export default class App extends Component {
     constructor (props) {
@@ -125,7 +126,7 @@ export default class App extends Component {
                 <div onChange={this.handleInput} onKeyDown={this.handleCaret} className="terminal">
                     { terminal.printEmptyLine() }
 
-                    { terminal.printText(`Name: ${config.name} ${config.version}`) }
+                    { terminal.printText(`Name: ${config.name} ${getMyVersion(Date.now())}`) }
                     { terminal.printText(`Location: ${config.location}`) }
                     { terminal.printText(`Job: ${config.job} @ ${config.employer}`) }
                     { terminal.printText('GitHub: ', 'a', config.github) }
