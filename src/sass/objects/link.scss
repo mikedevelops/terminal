@@ -1,0 +1,13 @@
+/**
+ * Link
+ */
+
+a {
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $color-white;
+        box-shadow: 0 0 0 2px $color-white;
+        color: $color-black;
+    }
+}
