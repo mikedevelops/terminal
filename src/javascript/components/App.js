@@ -42,8 +42,8 @@ export default class App extends Component {
     }
 
     updateHistory (command) {
-        const { history, path } = this.state
-        const newHistory = history.push({ path: path, command: command })
+        const { history } = this.state
+        const newHistory = history.push({ path: '', command: command })
 
         this.setState({ history: newHistory })
     }
@@ -135,7 +135,7 @@ export default class App extends Component {
             return (
                 <CommandLine
                     key={`${history.command}_${index}`}
-                    path={terminal.printPath(history.path)}
+                    path={history.path ? terminal.printPath(history.path) : ''}
                     command={history.command} />
             )
         })
@@ -165,8 +165,6 @@ export default class App extends Component {
                     <div className="command__history">
                         { CommandCache }
                     </div>
-
-                    {/* TODO: this needs to live above inital comand line, should only render if count has updated */}
 
                     { shouldDispatcherRender && <CommandDispatcher
                         updateHistory={this.updateHistory}

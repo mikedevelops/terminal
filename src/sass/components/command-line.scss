@@ -28,9 +28,9 @@
      }
  }
 
- /**
-  * Input
-  */
+/**
+* Input
+*/
 
 .command__input {
     display: inline-block;
@@ -67,7 +67,17 @@
     &:active {
         outline: 0;
     }
- }
+}
+
+/**
+ * Output
+ */
+
+.command__output {
+    .terminal__text {
+        white-space: pre;
+    }
+}
 
 /**
  * Text
