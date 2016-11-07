@@ -5,6 +5,7 @@ import LastLogin from './LastLogin'
 import CommandLine from './CommandLine'
 import Caret from './Caret'
 import CommandInput from './CommandInput'
+import CommandDispatcher from './CommandDispatcher'
 
 import config from '../config'
 import terminal from '../helpers/terminal'
@@ -71,7 +72,8 @@ export default class App extends Component {
                 count: newCount + 1,
                 command: value,
                 commandCache: newCommandCache,
-                input: ''
+                input: '',
+                position: 0
             })
         // Left Arrow
         case 37:
@@ -112,8 +114,8 @@ export default class App extends Component {
     }
 
     render () {
-        const { path, input, focus, count, commandCacheCount, position } = this.state
-        const CommandCache = this.state.history.map((history, index) => {
+        const { path, input, focus, count, commandCacheCount, position, command, history } = this.state
+        const CommandCache = history.map((history, index) => {
             return (
                 <CommandLine
                     key={`${history.command}_${index}`}
@@ -155,6 +157,14 @@ export default class App extends Component {
                         focus={focus}
                         count={count}
                     /><Caret position={position} input={input} />
+
+                    // TODO: this needs to live above inital comand line
+                    // should only render if count has updated
+
+                    <CommandDispatcher
+                        command={command}
+                        count={count}
+                        path={terminal.printPath(history)} />
                 </div>
             </div>
         )
