@@ -20,6 +20,8 @@ export default class App extends Component {
         this.focusInput = this.focusInput.bind(this)
         this.handleInput = this.handleInput.bind(this)
         this.handleCaret = this.handleCaret.bind(this)
+        this.updateHistory = this.updateHistory.bind(this)
+        this.count = 0
         this.state = {
             path: ['Mike', 'Portfolio', 'www'],
             input: '',
@@ -37,6 +39,13 @@ export default class App extends Component {
         this.setState({
             focus: true
         })
+    }
+
+    updateHistory (command) {
+        const { history, path } = this.state
+        const newHistory = history.push({ path: path, command: command })
+
+        this.setState({ history: newHistory })
     }
 
     handleCaret (event) {
@@ -115,6 +124,13 @@ export default class App extends Component {
 
     render () {
         const { path, input, focus, count, commandCacheCount, position, command, history } = this.state
+        let shouldDispatcherRender = false
+
+        if (count > this.count) {
+            shouldDispatcherRender = true
+            this.count++
+        }
+
         const CommandCache = history.map((history, index) => {
             return (
                 <CommandLine
@@ -152,10 +168,11 @@ export default class App extends Component {
 
                     {/* TODO: this needs to live above inital comand line, should only render if count has updated */}
 
-                    <CommandDispatcher
+                    { shouldDispatcherRender && <CommandDispatcher
+                        updateHistory={this.updateHistory}
                         command={command}
                         count={count}
-                        path={terminal.printPath(history)} />
+                        path={terminal.printPath(history)} /> }
 
                     <CommandLine path={terminal.printPath(path)} />
                     <CommandInput
