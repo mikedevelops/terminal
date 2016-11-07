@@ -48,6 +48,9 @@ export default class App extends Component {
         this.setState({ history: newHistory })
     }
 
+    // TODO: prevent default 'del' key
+    // TODO: 'down arrow' reverse of up arrow functionality
+
     handleCaret (event) {
         const { history, path, count, position, commandCache, commandCacheCount, input } = this.state
         const { value } = event.target
