@@ -150,6 +150,13 @@ export default class App extends Component {
                         { CommandCache }
                     </div>
 
+                    {/* TODO: this needs to live above inital comand line, should only render if count has updated */}
+
+                    <CommandDispatcher
+                        command={command}
+                        count={count}
+                        path={terminal.printPath(history)} />
+
                     <CommandLine path={terminal.printPath(path)} />
                     <CommandInput
                         commandCacheCount={commandCacheCount}
@@ -157,14 +164,6 @@ export default class App extends Component {
                         focus={focus}
                         count={count}
                     /><Caret position={position} input={input} />
-
-                    // TODO: this needs to live above inital comand line
-                    // should only render if count has updated
-
-                    <CommandDispatcher
-                        command={command}
-                        count={count}
-                        path={terminal.printPath(history)} />
                 </div>
             </div>
         )
