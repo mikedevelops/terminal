@@ -110,6 +110,32 @@ export default class App extends Component {
                 commandCache: newCommandCache,
                 commandCacheCount: newCommandCacheCount + 1
             })
+        // Down arrow
+        //
+        // More work needed!!
+        //
+        // case 40:
+        //     if (commandCache.size) {
+        //         newCommandCacheCount = newCommandCacheCount - 1
+        //         newInput = commandCache.get(newCommandCacheCount)
+        //
+        //         if (newCommandCacheCount >= 0) {
+        //             newCommandCache = commandCache.delete(newCommandCacheCount)
+        //             newCommandCache = newCommandCache.push(newInput).reverse()
+        //         }
+        //         else {
+        //             newInput = ''
+        //             newCommandCacheCount = 0
+        //         }
+        //
+        //         console.log(newCommandCache.toJSON())
+        //
+        //         return this.setState({
+        //             input: newInput,
+        //             commandCache: newCommandCache,
+        //             commandCacheCount: newCommandCacheCount
+        //         })
+        //     }
         }
     }
 

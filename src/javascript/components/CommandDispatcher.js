@@ -17,17 +17,21 @@ export default class CommandDispatcher extends Component {
 
     componentWillMount () {
         const { command, count } = this.props
+        const cleanCommand = command.trim()
 
         this.output = null
 
-        if (count > this.count) {
-            if (!this.commandList.find(val => val === command)) {
+        // return if command is empty
+        if (!cleanCommand.length || command === 'clear') return
+        // check for command in command list
+        else if (count > this.count) {
+            if (!this.commandList.find(val => val === cleanCommand)) {
                 this.result = `command not found: ${command}`
                 this.count++
                 this.props.updateHistory(this.result)
             }
             else {
-                switch(command) {
+                switch(cleanCommand) {
                 case 'help':
                     this.output = help
                     break

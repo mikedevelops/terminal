@@ -11,12 +11,13 @@ export default (
 
         { terminal.printText('+-------------------------------------------------+') }
         { terminal.printText('| Command | Usage          | Description          |') }
-        { terminal.printText('+---------+----------------+----------------------+') }
+        { terminal.printText('|-------------------------------------------------|') }
         { terminal.printText('| ls      | ls             | list directory       |') }
         { terminal.printText('| home    | home           | go to home directory |') }
         { terminal.printText('| cd      | cd <directory> | change directory     |') }
         { terminal.printText('| open    | open <file>    | view file contents   |') }
-        { terminal.printText('+---------+----------------+----------------------+') }
+        { terminal.printText('| clear   | clear          | clear screen         |') }
+        { terminal.printText('+-------------------------------------------------+') }
 
         { terminal.printEmptyLine() }
     </div>
