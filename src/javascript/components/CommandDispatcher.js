@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { List } from 'immutable'
 
-import help from '../commands/help'
+import Help from '../commands/Help'
+import ListDirectory from '../commands/ListDirectory'
 
 export default class CommandDispatcher extends Component {
     constructor (props) {
         super(props)
 
         this.commandList = List.of(
-            'help'
+            'help',
+            'ls'
         )
         this.result = ''
         this.count = 0
@@ -16,7 +18,7 @@ export default class CommandDispatcher extends Component {
     }
 
     componentWillMount () {
-        const { command, count } = this.props
+        const { command, count, currentDirectory } = this.props
         const cleanCommand = command.trim()
 
         this.output = null
@@ -33,9 +35,13 @@ export default class CommandDispatcher extends Component {
             else {
                 switch(cleanCommand) {
                 case 'help':
-                    this.output = help
+                    this.output = <Help />
+                    break
+                case 'ls':
+                    this.output = <ListDirectory currentDirectory={currentDirectory} />
                     break
                 }
+
             }
         }
     }

@@ -29,6 +29,8 @@ export default class App extends Component {
             command: '',
             count: 0,
             history: List(),
+            directories: config.directories,
+            currentDirectory: 'portfolio',
             commandCache: List(),
             commandCacheCount: 0,
             position: 0
@@ -152,7 +154,7 @@ export default class App extends Component {
     }
 
     render () {
-        const { path, input, focus, count, commandCacheCount, position, command, history } = this.state
+        const { path, input, focus, count, commandCacheCount, position, command, history, directories, currentDirectory } = this.state
         let shouldDispatcherRender = false
 
         if (count > this.count) {
@@ -196,6 +198,7 @@ export default class App extends Component {
                     </div>
 
                     { shouldDispatcherRender && <CommandDispatcher
+                        currentDirectory={directories[currentDirectory]}
                         updateHistory={this.updateHistory}
                         command={command}
                         count={count}
