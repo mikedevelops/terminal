@@ -1,27 +1,29 @@
 import React, { Component } from 'react'
-import terminal from '../helpers/terminal'
+
+import printEmptyLine from '../helpers/printEmptyLine'
+import printText from '../helpers/printText'
 
 export default class Help extends Component {
     render () {
         return (
             <div className="command__output command__ouput--help">
-                { terminal.printEmptyLine() }
+                { printEmptyLine() }
 
-                { terminal.printText('Usage: <command>') }
+                { printText('Usage: <command>') }
 
-                { terminal.printEmptyLine() }
+                { printEmptyLine() }
 
-                { terminal.printText('+-------------------------------------------------+') }
-                { terminal.printText('| Command | Usage          | Description          |') }
-                { terminal.printText('|-------------------------------------------------|') }
-                { terminal.printText('| ls      | ls             | list directory       |') }
-                { terminal.printText('| open    | open <file>    | view file contents   |') }
-                { terminal.printText('| cd      | cd <directory> | change directory     |') }
-                { terminal.printText('| home    | home           | go to home directory |') }
-                { terminal.printText('| clear   | clear          | clear screen         |') }
-                { terminal.printText('+-------------------------------------------------+') }
+                { printText('+-------------------------------------------------+') }
+                { printText('| Command | Usage          | Description          |') }
+                { printText('|-------------------------------------------------|') }
+                { printText('| ls      | ls             | list directory       |') }
+                { printText('| open    | open <file>    | view file contents   |') }
+                { printText('| cd      | cd <directory> | change directory     |') }
+                { printText('| home    | home           | go to home directory |') }
+                { printText('| clear   | clear          | clear screen         |') }
+                { printText('+-------------------------------------------------+') }
 
-                { terminal.printEmptyLine() }
+                { printEmptyLine() }
             </div>
         )
     }

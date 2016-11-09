@@ -1,19 +1,25 @@
-import React, { Component } from 'react'
-import terminal from '../helpers/terminal'
+import React, { Component, PropTypes } from 'react'
 
-export default class List extends Component {
+import printEmptyLine from '../helpers/printEmptyLine'
+import printText from '../helpers/printText'
+
+export default class ListDirectory extends Component {
     render () {
-        const { currentDirectory } = this.props;
+        const { currentDirectory } = this.props
         const items = currentDirectory.map(item => item.name)
 
         return (
             <div className="command__output command__output--list">
-                { terminal.printEmptyLine() }
+                { printEmptyLine() }
 
-                { terminal.printText(items.join('   ')) }
+                { printText(items.join('   ')) }
 
-                { terminal.printEmptyLine() }
+                { printEmptyLine() }
             </div>
         )
     }
+}
+
+ListDirectory.propTypes = {
+    currentDirectory: PropTypes.array
 }

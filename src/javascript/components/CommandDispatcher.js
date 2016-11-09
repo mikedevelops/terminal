@@ -62,5 +62,6 @@ export default class CommandDispatcher extends Component {
 CommandDispatcher.propTypes = {
     command: PropTypes.string,
     count: PropTypes.number,
-    updateHistory: PropTypes.func
+    updateHistory: PropTypes.func,
+    currentDirectory: PropTypes.array
 }

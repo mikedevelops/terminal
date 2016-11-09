@@ -8,8 +8,10 @@ import CommandInput from './CommandInput'
 import CommandDispatcher from './CommandDispatcher'
 
 import config from '../config'
-import terminal from '../helpers/terminal'
 import getMyVersion from '../helpers/getMyVersion'
+import printText from '../helpers/printText'
+import printPath from '../helpers/printPath'
+import printEmptyLine from '../helpers/printEmptyLine'
 
 const theDate = Date.now()
 
@@ -166,7 +168,7 @@ export default class App extends Component {
             return (
                 <CommandLine
                     key={`${history.command}_${index}`}
-                    path={history.path ? terminal.printPath(history.path) : ''}
+                    path={history.path ? printPath(history.path) : ''}
                     command={history.command} />
             )
         })
@@ -179,19 +181,19 @@ export default class App extends Component {
                 </div>
 
                 <div onChange={this.handleInput} onKeyDown={this.handleCaret} className="terminal">
-                    { terminal.printEmptyLine() }
+                    { printEmptyLine() }
 
-                    { terminal.printText(`Name: ${config.name} ${getMyVersion(theDate)}`) }
-                    { terminal.printText(`Location: ${config.location}`) }
-                    { terminal.printText(`Job: ${config.job} @ ${config.employer}`) }
-                    { terminal.printText('GitHub: ', 'a', config.github) }
-                    { terminal.printText('Twitter: ', 'a', config.twitter) }
+                    { printText(`Name: ${config.name} ${getMyVersion(theDate)}`) }
+                    { printText(`Location: ${config.location}`) }
+                    { printText(`Job: ${config.job} @ ${config.employer}`) }
+                    { printText('GitHub: ', 'a', config.github) }
+                    { printText('Twitter: ', 'a', config.twitter) }
 
-                    { terminal.printEmptyLine() }
+                    { printEmptyLine() }
 
-                    { terminal.printText('Type ‘help’ for command list')}
+                    { printText('Type ‘help’ for command list')}
 
-                    { terminal.printEmptyLine() }
+                    { printEmptyLine() }
 
                     <div className="command__history">
                         { CommandCache }
@@ -202,9 +204,9 @@ export default class App extends Component {
                         updateHistory={this.updateHistory}
                         command={command}
                         count={count}
-                        path={terminal.printPath(history)} /> }
+                        path={printPath(history)} /> }
 
-                    <CommandLine path={terminal.printPath(path)} />
+                    <CommandLine path={printPath(path)} />
                     <CommandInput
                         commandCacheCount={commandCacheCount}
                         input={input}
