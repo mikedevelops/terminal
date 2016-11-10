@@ -1,6 +1,9 @@
 {
-    "name": "Michael Smart",
-    "location": "Leicester, United Kingdom",
-    "job": "Javascript Developer",
-    "company": "Effect Digital"
+    "name": "michael smart",
+    "location": "leicester, united kingdom",
+    "job": "javascript developer",
+    "company": "effect digital",
+    "availability": "available for small freelance projects",
+    "languages": ["javascript", "html", "css"],
+    "technologies": ["react", "node", "vue", "sass"]
 }

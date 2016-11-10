@@ -4,8 +4,21 @@ export default function (json) {
 
     Object.keys(json).map((key, index) => {
         const comma = index !== keyLength - 1 ? ',' : ''
+        const valueLength = json[key].length
+        let value = ''
 
-        output.push(`    "${key}": "${json[key]}"${comma}`)
+        if (typeof json[key] === 'string') value = `"${json[key]}"`
+        else if (valueLength) {
+            value = '['
+            json[key].map((item, index) => {
+                const comma = index !== valueLength - 1 ? ', ' : ''
+
+                value += `"${item}"${comma}`
+            })
+            value += ']'
+        }
+
+        output.push(`    "${key}": ${value}${comma}`)
 
     })
 

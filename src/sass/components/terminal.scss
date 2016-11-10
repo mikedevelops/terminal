@@ -25,6 +25,13 @@
     font-weight: $font-weight-bold;
 }
 
+.terminal__text--invert {
+    background-color: $color-white;
+    box-shadow: 0 0 0 2px $color-white;
+    color: $color-black;
+    text-indent: $space-fifth;
+}
+
 /**
  * Caret
  */
@@ -43,7 +50,6 @@ $caret-blink: 1000ms;
 .terminal__caret {
     animation: blink 750ms infinite steps(1);
     background-color: $color-white;
-    backdrop-filter: invert(100%);
     display: inline-block;
     height: $caret-height;
     position: relative;

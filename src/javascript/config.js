@@ -11,9 +11,9 @@ export default {
     twitter: 'https://twitter.com/mikedevelops',
     directories: {
         portfolio: [
-            { name: 'about.json', perms: '-rw-r--r--' },
-            { name: 'contact.sh', perms: '-rw-r--r--' },
-            { name: 'blog', perms: 'drwxr-xr-x' }
+            { name: 'about.json', perms: '-rw-r--r--', type: 'file' },
+            { name: 'contact.sh', perms: '-rw-r--r--', type: 'script' },
+            { name: 'blog', perms: 'drwxr-xr-x', type: 'dir' }
         ]
     }
 }

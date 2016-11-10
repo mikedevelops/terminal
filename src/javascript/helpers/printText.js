@@ -1,5 +1,12 @@
 import React from 'react'
 
+const defaults = {
+    tag: 'p',
+    href: false,
+    key: false,
+    invert: false
+}
+
 /**
  * Print 1 line of terminal output
  * @param  {String}     content
@@ -7,8 +14,11 @@ import React from 'react'
  * @param  {String}     [link='']   [description]
  * @return {JSX}                    console output
  */
-export default function (content, tag = 'p', link = false, key = false) {
-    const className = 'terminal__text'
+export default function (content, options) {
+    options = Object.assign({}, defaults, options)
+
+    const { key, href, tag, invert} = options
+    const className = `terminal__text${ invert ? ' terminal__text--invert' : '' }`
     let output
 
     switch (tag) {
@@ -21,8 +31,8 @@ export default function (content, tag = 'p', link = false, key = false) {
         output =  (
             <p key={key || content.replace(' ', '')} className={className}>
                 { content }
-                <a href={link} className={className + ' terminal__link'}>
-                    { link }
+                <a href={href} className={className + ' terminal__link'}>
+                    { href }
                 </a>
             </p>
         )

@@ -21,7 +21,9 @@ export default class CommandDispatcher extends Component {
 
     componentWillMount () {
         const { command, count, currentDirectory } = this.props
-        const cleanCommand = command.trim().split(' ')[0]
+        const splitCommand = command.trim().split(' ')
+        const cleanCommand = splitCommand[0]
+        const argument = splitCommand[1]
 
         this.output = null
 
@@ -43,7 +45,11 @@ export default class CommandDispatcher extends Component {
                     this.output = <ListDirectory currentDirectory={currentDirectory} />
                     break
                 case 'open':
-                    this.output = <OpenFile />
+                    currentDirectory.map(item => {
+                        if (item.type !== 'dir') {
+                            this.output = <OpenFile file={argument} />
+                        }
+                    })
                     break
                 }
             }

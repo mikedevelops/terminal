@@ -186,8 +186,8 @@ export default class App extends Component {
                     { printText(`Name: ${config.name} ${getMyVersion(theDate)}`) }
                     { printText(`Location: ${config.location}`) }
                     { printText(`Job: ${config.job} @ ${config.employer}`) }
-                    { printText('GitHub: ', 'a', config.github) }
-                    { printText('Twitter: ', 'a', config.twitter) }
+                    { printText('GitHub: ', { tag: 'a', href: config.github }) }
+                    { printText('Twitter: ', { tag: 'a', href: config.twitter }) }
 
                     { printEmptyLine() }
 
