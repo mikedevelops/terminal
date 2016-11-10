@@ -8,11 +8,7 @@ export default class Help extends Component {
         return (
             <div className="command__output command__ouput--help">
                 { printEmptyLine() }
-
-                { printText('Usage: <command>') }
-
-                { printEmptyLine() }
-
+                
                 { printText('+-------------------------------------------------+') }
                 { printText('| Command | Usage          | Description          |') }
                 { printText('|-------------------------------------------------|') }
