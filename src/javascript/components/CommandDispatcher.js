@@ -3,6 +3,7 @@ import { List } from 'immutable'
 
 import Help from '../commands/Help'
 import ListDirectory from '../commands/ListDirectory'
+import OpenFile from '../commands/OpenFile'
 
 export default class CommandDispatcher extends Component {
     constructor (props) {
@@ -10,7 +11,8 @@ export default class CommandDispatcher extends Component {
 
         this.commandList = List.of(
             'help',
-            'ls'
+            'ls',
+            'open'
         )
         this.result = ''
         this.count = 0
@@ -19,11 +21,11 @@ export default class CommandDispatcher extends Component {
 
     componentWillMount () {
         const { command, count, currentDirectory } = this.props
-        const cleanCommand = command.trim()
+        const cleanCommand = command.trim().split(' ')[0]
 
         this.output = null
 
-        // return if command is empty
+        // return if command is empty || 'clear'
         if (!cleanCommand.length || command === 'clear') return
         // check for command in command list
         else if (count > this.count) {
@@ -40,8 +42,10 @@ export default class CommandDispatcher extends Component {
                 case 'ls':
                     this.output = <ListDirectory currentDirectory={currentDirectory} />
                     break
+                case 'open':
+                    this.output = <OpenFile />
+                    break
                 }
-
             }
         }
     }

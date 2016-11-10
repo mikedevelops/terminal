@@ -23,7 +23,8 @@
          display: block;
      }
 
-     .command__path {
+     .command__path,
+     .terminal__text {
          white-space: pre;
      }
  }

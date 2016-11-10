@@ -157,7 +157,7 @@ export default class App extends Component {
 
     render () {
         const { path, input, focus, count, commandCacheCount, position, command, history, directories, currentDirectory } = this.state
-        let shouldDispatcherRender = false
+        let shouldDispatcherRender = false // debug: true
 
         if (count > this.count) {
             shouldDispatcherRender = true
@@ -202,6 +202,11 @@ export default class App extends Component {
                     { shouldDispatcherRender && <CommandDispatcher
                         currentDirectory={directories[currentDirectory]}
                         updateHistory={this.updateHistory}
+                        // debug
+                        // command={'open foo'}
+                        // count={1}
+                        // debug
+
                         command={command}
                         count={count}
                         path={printPath(history)} /> }
