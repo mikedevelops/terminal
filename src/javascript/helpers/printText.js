@@ -7,6 +7,8 @@ const defaults = {
     invert: false
 }
 
+let childIndex = 0
+
 /**
  * Print 1 line of terminal output
  * @param  {String}     content
@@ -18,18 +20,18 @@ export default function (content, options) {
     options = Object.assign({}, defaults, options)
 
     const { key, href, tag, invert} = options
-    const className = `terminal__text${ invert ? ' terminal__text--invert' : '' }`
+    const className = `terminal__text${ invert ? ' terminal__text--invert' : ''}`
     let output
 
     switch (tag) {
     case 'p':
         output = (
-            <p key={key || content.replace(' ', '')} className={className}>{ content }</p>
+            <p key={key || tag + childIndex} className={className}>{ content }</p>
         )
         break
     case 'a':
         output =  (
-            <p key={key || content.replace(' ', '')} className={className}>
+            <p key={key || tag + childIndex} className={className}>
                 { content }
                 <a href={href} className={className + ' terminal__link'}>
                     { href }
@@ -39,5 +41,6 @@ export default function (content, options) {
         break
     }
 
+    childIndex++
     return output
 }
